@@ -1,0 +1,701 @@
+openapi: 3.0.0
+info:
+  title: routesDoc
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /login/:
+    parameters: []
+    post:
+      summary: Get Login Token
+      operationId: post-login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  token:
+                    type: string
+                    minLength: 1
+                required:
+                  - token
+                x-examples:
+                  example-1:
+                    token: string
+              examples:
+                example-1:
+                  value:
+                    token: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  details:
+                    type: string
+                    minLength: 1
+                required:
+                  - details
+                x-examples:
+                  example-1:
+                    details: User does not exist or credentials are invalid.
+              examples:
+                example-1:
+                  value:
+                    details: User does not exist or credentials are invalid.
+      description: Get Bearer Token using valid login credentials.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                username:
+                  type: string
+                  minLength: 1
+                password:
+                  type: string
+                  minLength: 1
+              required:
+                - username
+                - password
+              x-examples:
+                example-1:
+                  username: string
+                  password: string
+            examples:
+              example-1:
+                value:
+                  username: string
+                  password: string
+        description: Username and Password
+  /logout/:
+    post:
+      summary: logout
+      operationId: logout-user
+      responses:
+        '200':
+          description: logout successful
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  details:
+                    type: string
+                    minLength: 1
+                required:
+                  - details
+                x-examples:
+                  example-1:
+                    details: logout successful.
+              examples:
+                message:
+                  value:
+                    details: logout successful.
+        '401':
+          description: Wrong Information
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    minLength: 1
+                required:
+                  - detail
+                x-examples:
+                  example-1:
+                    detail: Invalid token.
+              examples:
+                message:
+                  value:
+                    detail: Invalid token.
+      description: Invalidate a Bearer Toekn given to a user.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: '''Token'' followed by a space then the actual token.'
+          required: true
+    parameters: []
+  /config/kanzi/default/:
+    get:
+      summary: Kanzi Default Config
+      operationId: get-config-kanzi-default
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  run-time:
+                    type: number
+                  energy:
+                    type: number
+                required:
+                  - run-time
+                  - energy
+                x-examples:
+                  example-1:
+                    run-time: 0.09236394624248921
+                    energy: 0.17315721808227894
+              examples:
+                example:
+                  value:
+                    run-time: 0.09236394624248921
+                    energy: 0.17315721808227894
+        '400':
+          description: Missing method-name.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  details:
+                    type: string
+                    minLength: 1
+                required:
+                  - details
+                x-examples:
+                  example-1:
+                    details: Missing parameters or method-name.
+              examples:
+                message:
+                  value:
+                    details: Missing parameters or method-name.
+        '401':
+          description: Missing or Wrong Token.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    minLength: 1
+                required:
+                  - detail
+                x-examples:
+                  example-1:
+                    detail: Invalid token.
+              examples:
+                message:
+                  value:
+                    detail: Authentication credentials were not provided.
+      description: Get the default config for a method from Kanzi.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: '''Token'' followed by a space then the actual token.'
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: method-name
+          required: true
+    parameters: []
+  /config/kanzi/one/:
+    get:
+      summary: Kanzi One Config
+      operationId: get-config-kanzi-one
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  run-time:
+                    type: number
+                  energy:
+                    type: number
+                required:
+                  - run-time
+                  - energy
+                x-examples:
+                  example-1:
+                    run-time: 0.09236394624248921
+                    energy: 0.17315721808227894
+              examples:
+                example:
+                  value:
+                    run-time: 0.09236394624248921
+                    energy: 0.17315721808227894
+        '400':
+          description: Missing method-name or no method parameters.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  details:
+                    type: string
+                    minLength: 1
+                required:
+                  - details
+                x-examples:
+                  example-1:
+                    details: Missing parameters or method-name.
+              examples:
+                message:
+                  value:
+                    details: Missing parameters or method-name.
+        '401':
+          description: Missing or Wrong Token.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    minLength: 1
+                required:
+                  - detail
+                x-examples:
+                  example-1:
+                    detail: Invalid token.
+              examples:
+                message:
+                  value:
+                    detail: Authentication credentials were not provided.
+      description: Get the default config for a method from Kanzi.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: '''Token'' followed by a space then the actual token.'
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: method-name
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: CONFIGPARAMETER
+          description: any config parameter for Kanzi methods.
+          required: true
+    parameters: []
+  /config/kanzi/many/:
+    get:
+      summary: Kanzi Many Config
+      operationId: get-config-kanzi-many
+      responses:
+        '200':
+          description: 'List of runtime and energy usage of methods based on config, or error message if not found.'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  NOT-FOUND:
+                    type: object
+                    properties:
+                      details:
+                        type: string
+                        minLength: 1
+                    required:
+                      - details
+                  METHOD1:
+                    type: object
+                    properties:
+                      run-time:
+                        type: number
+                      energy:
+                        type: number
+                    required:
+                      - run-time
+                      - energy
+                required:
+                  - NOT-FOUND
+                  - METHOD1
+                x-examples:
+                  example-1:
+                    NOT-FOUND:
+                      details: missing parameters or method-name.
+                    METHOD1:
+                      run-time: 7.6130049180368715
+                      energy: 0.4197174841900475
+              examples:
+                example:
+                  value:
+                    NOT-FOUND:
+                      details: missing parameters or method-name.
+                    METHOD1:
+                      run-time: 7.6130049180368715
+                      energy: 0.4197174841900475
+        '401':
+          description: Missing or Wrong Token.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    minLength: 1
+                required:
+                  - detail
+                x-examples:
+                  example-1:
+                    detail: Invalid token.
+              examples:
+                message:
+                  value:
+                    detail: Authentication credentials were not provided.
+      description: Get a certain config for multiple methods from Kanzi.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: '''Token'' followed by a space then the actual token.'
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: method-name
+          required: true
+          description: 'names, comma-separated.'
+        - schema:
+            type: string
+          in: query
+          name: CONFIGPARAMETER
+          description: any config parameter for Kanzi methods.
+          required: true
+    parameters: []
+  /config/density/default/:
+    get:
+      summary: Density Default Config
+      operationId: get-config-density-default
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  run-time:
+                    type: number
+                  energy:
+                    type: number
+                required:
+                  - run-time
+                  - energy
+                x-examples:
+                  example-1:
+                    run-time: 0.09236394624248921
+                    energy: 0.17315721808227894
+              examples:
+                example:
+                  value:
+                    run-time: 0.09236394624248921
+                    energy: 0.17315721808227894
+        '400':
+          description: Missing method-name.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  details:
+                    type: string
+                    minLength: 1
+                required:
+                  - details
+                x-examples:
+                  example-1:
+                    details: Missing parameters or method-name.
+              examples:
+                message:
+                  value:
+                    details: Missing parameters or method-name.
+        '401':
+          description: Missing or Wrong Token.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    minLength: 1
+                required:
+                  - detail
+                x-examples:
+                  example-1:
+                    detail: Invalid token.
+              examples:
+                message:
+                  value:
+                    detail: Authentication credentials were not provided.
+      description: Get the default config for a method from Density.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: '''Token'' followed by a space then the actual token.'
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: method-name
+          required: true
+    parameters: []
+  /config/density/one/:
+    get:
+      summary: Density One Config
+      operationId: get-config-density-one
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  run-time:
+                    type: number
+                  energy:
+                    type: number
+                required:
+                  - run-time
+                  - energy
+                x-examples:
+                  example-1:
+                    run-time: 0.09236394624248921
+                    energy: 0.17315721808227894
+              examples:
+                example:
+                  value:
+                    run-time: 0.09236394624248921
+                    energy: 0.17315721808227894
+        '400':
+          description: Missing method-name or no method parameters.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  details:
+                    type: string
+                    minLength: 1
+                required:
+                  - details
+                x-examples:
+                  example-1:
+                    details: Missing parameters or method-name.
+              examples:
+                message:
+                  value:
+                    details: Missing parameters or method-name.
+        '401':
+          description: Missing or Wrong Token.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    minLength: 1
+                required:
+                  - detail
+                x-examples:
+                  example-1:
+                    detail: Invalid token.
+              examples:
+                message:
+                  value:
+                    detail: Authentication credentials were not provided.
+      description: Get a certain config for a method from Density.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: '''Token'' followed by a space then the actual token.'
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: method-name
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: CONFIGPARAMETER
+          description: any config parameter for Density methods.
+          required: true
+    parameters: []
+  /config/density/many/:
+    get:
+      summary: Density Many Config
+      operationId: get-config-density-many
+      responses:
+        '200':
+          description: 'List of runtime and energy usage of methods based on config, or error message if not found.'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  NOT-FOUND:
+                    type: object
+                    properties:
+                      details:
+                        type: string
+                        minLength: 1
+                    required:
+                      - details
+                  METHOD1:
+                    type: object
+                    properties:
+                      run-time:
+                        type: number
+                      energy:
+                        type: number
+                    required:
+                      - run-time
+                      - energy
+                required:
+                  - NOT-FOUND
+                  - METHOD1
+                x-examples:
+                  example-1:
+                    NOT-FOUND:
+                      details: missing parameters or method-name.
+                    METHOD1:
+                      run-time: 7.6130049180368715
+                      energy: 0.4197174841900475
+              examples:
+                example:
+                  value:
+                    NOT-FOUND:
+                      details: missing parameters or method-name.
+                    METHOD1:
+                      run-time: 7.6130049180368715
+                      energy: 0.4197174841900475
+        '401':
+          description: Missing or Wrong Token.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    minLength: 1
+                required:
+                  - detail
+                x-examples:
+                  example-1:
+                    detail: Invalid token.
+              examples:
+                message:
+                  value:
+                    detail: Authentication credentials were not provided.
+      description: Get a certain config for a multiple methods from Density.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: '''Token'' followed by a space then the actual token.'
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: method-name
+          required: true
+          description: 'names, comma-separated.'
+        - schema:
+            type: string
+          in: query
+          name: CONFIGPARAMETER
+          description: any config parameter for Density methods.
+          required: true
+    parameters: []
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ''
+      x-examples:
+        Alice Smith:
+          id: 142
+          firstName: Alice
+          lastName: Smith
+          email: alice.smith@gmail.com
+          dateOfBirth: '1997-10-31'
+          emailVerified: true
+          signUpDate: '2019-08-24'
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given user.
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        dateOfBirth:
+          type: string
+          format: date
+          example: '1997-10-31'
+        emailVerified:
+          type: boolean
+          description: Set to true if the user's email has been verified.
+        createDate:
+          type: string
+          format: date
+          description: The date that the user was created.
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - emailVerified

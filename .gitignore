@@ -1,0 +1,9 @@
+tests/
+venv/
+djangobackend/server.py
+djangobackend/djangobackend/__pycache__/**
+djangobackend/configs/__pycache__/**
+djangobackend/manage_authentication/__pycache__/**
+frontend/greenide/dist/**
+frontend/greenide/out/**
+frontend/greenide/node_modules/**
